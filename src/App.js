@@ -11,6 +11,7 @@ import NavBar from "./components/NavBar";
 import products from "./products";
 //react
 import {Route, Switch} from "react-router";
+import {Helmet} from "react-helmet";
 
 const theme = {
   light: {
@@ -45,21 +46,23 @@ function App() {
   return (
     <ThemeProvider theme={theme[currentTheme]}>
       <GlobalStyle />
+     
+      <Helmet><title>Cookie's Shop</title></Helmet>
       <NavBar currentTheme={currentTheme} toggleTheme={toggleTheme} />
       <Switch>
+      <Route path="/products/:productSlug">
+        <ProductDetail
+        products={_products}
+        deleteProduct={deleteProduct}
+      />
+      </Route>
+
       <Route path="/products">
         <ProductList
         products={_products}
         deleteProduct={deleteProduct}
       />
       </Route>
-
-      {/* <Route path="/products">
-        <ProductDetail
-        product={product}
-        deleteProduct={deleteProduct}
-      />
-      </Route> */}
 
       <Route exact path="/">
         <Home />
